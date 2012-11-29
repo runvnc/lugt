@@ -1,0 +1,10 @@
+{ 
+  "name": "lugt",
+  "description": "Interactive tool for updating offsets etc. in wavs used in UTAU",
+  "version": "0.0.1",
+  "dependencies": {
+    "express" : "2.5.5",
+    "now": "",
+    "async": ""
+  }
+}

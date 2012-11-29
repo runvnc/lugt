@@ -1,0 +1,81 @@
+html, body, p, div, ul, li, span {
+  font-family: Arial, Verdana, sans-serif;
+  font-size: 10pt;
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  padding: 20px;
+}
+
+
+#fileman {
+  display: none;  
+}
+
+.fmselected {
+  background-color: blue;
+  color: white;
+}
+
+#openfm img {
+  /* float: left;
+  margin-left: -20px; */
+}
+
+.fmitem {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;    
+}
+
+.fmdir.fmselected {
+  background-color: #146CC9; 
+}
+
+#filecontrols {
+  float: left;
+  width: 330px;
+  margin-right: 15px;
+}
+
+#loadfromurl {
+  width: 330px; 
+}
+
+#uploadform {
+ display: none; 
+}
+
+#upframe {
+ height: 75px; 
+ overflow: hidden;
+}
+
+#fsroot li {
+  cursor: pointer; 
+}
+
+#refreshdir {
+  margin-left: 50px; 
+}
+
+.fmupdir {
+  background-color: #F5EFB3;  
+}
+
+.fmdir {
+  background-color: #F5EFB3; 
+}
+
+#fileswin {
+  height: 250px; 
+  background-color: #fff;
+  overflow: auto;
+}
+
+

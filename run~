@@ -1,0 +1,5 @@
+#!/bin/bash
+cd public/js
+coffee -c *.coffee
+cd ../..
+coffee app
