@@ -1,6 +1,8 @@
 express = require 'express'
 fs = require 'fs'
 async = require 'async'
+Iconv  = require('iconv').Iconv
+
 
 app = module.exports = express.createServer()
 
@@ -34,25 +36,55 @@ everyone = nowjs.initialize app
 mydir = ''
 currdir = ''
 
+try
+  currdir = process.env.HOME + '/.wine/drive_c/Program Files (x86)/UTAU/voice/uta'
+  mydir = currdir
+
+
 addstat = (file, callback) ->
   fs.stat mydir + file, (err, stats) ->
-    ret =
-      name: file
-      stats: stats
-      isDirectory: stats.isDirectory()
+    if err?
+      console.log 'Error in addstat'
+      console.log err
+      callback undefined, ''
+    else
+      ret =
+        name: file
+        stats: stats
+        isDirectory: stats.isDirectory()
       
-    callback undefined, ret
+      callback undefined, ret
 
 fileordir = (dir, files, callback) ->
   mydir = dir
   if mydir is '.' then mydir = './'
+  console.log files
   async.map files, addstat, (err, results) ->
     callback results
+
+everyone.now.loadini = (callback) ->
+  console.log 'loadini'
+  fs.readFile currdir + '/oto.ini', (err, buffer) ->
+    if err? 
+      console.log err
+    else
+      console.log 'converting'
+      iconv = new Iconv('SHIFT-JIS', 'UTF-8')
+      buffer = iconv.convert buffer
+      console.log 'converted'
+      console.log buffer.toString()
+      callback buffer.toString()
+
 
 everyone.now.listFiles = (dir, callback) ->
   currdir = dir
   fs.readdir dir, (err, files) ->
-    fileordir dir, files, callback  
+    if err?
+      console.log err
+    else
+      fileordir dir, files, callback  
 
+everyone.now.initdirs = (callback) ->
+  callback currdir
 
 

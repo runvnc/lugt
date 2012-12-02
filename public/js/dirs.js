@@ -2,7 +2,9 @@
 (function() {
   var cwd, getlink, listFiles, showFiles, sortem;
 
-  cwd = '.';
+  if (!(typeof cwd !== "undefined" && cwd !== null)) {
+    cwd = '.';
+  }
 
   sortem = function(files) {
     files.sort(function(a, b) {
@@ -38,6 +40,7 @@
 
   showFiles = function(files) {
     var classnm, file, listing, str, _i, _len;
+    $('#cwd').html(cwd);
     console.log('**** FileManager showFiles ****');
     str = '<li class=\"fmitem fmupdir\">..</li>';
     sortem(files);
@@ -57,7 +60,9 @@
       if (cwd === '.') {
         cwd = './';
       }
+      console.log('cwd starts as ' + cwd);
       cwd += $(this).text();
+      console.log('cwd ends as ' + cwd);
       return listFiles();
     });
     $('.fmupdir').off('click');
@@ -79,7 +84,11 @@
   };
 
   $(function() {
-    return $('#seldir').click(function() {
+    $('#donesel').click(function() {
+      window.cwd = cwd;
+      return window.loadini();
+    });
+    $('#seldir').click(function() {
       $('#fileman').dialog({
         title: 'Select Directory',
         width: 870,
@@ -89,6 +98,12 @@
       $('#fileswin').height($(window).height() * .75);
       listFiles();
       return $('#refreshdir').click(listFiles);
+    });
+    return now.ready(function() {
+      return now.initdirs(function(dir) {
+        cwd = dir;
+        return $('#cwd').html(cwd);
+      });
     });
   });
 

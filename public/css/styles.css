@@ -3,6 +3,8 @@ html, body, p, div, ul, li, span {
   font-size: 10pt;
   padding: 0px;
   margin: 0px;
+  background-color: black;
+  color: white;
 }
 
 body {
@@ -65,16 +67,17 @@ body {
 }
 
 .fmupdir {
-  background-color: #F5EFB3;  
+  background-color: #222;  
 }
 
 .fmdir {
-  background-color: #F5EFB3; 
+  background-color: #222; 
 }
 
 #fileswin {
   height: 250px; 
-  background-color: #fff;
+  color: white;
+  background-color: #black;
   overflow: auto;
 }
 

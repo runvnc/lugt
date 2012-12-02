@@ -1,5 +1,6 @@
-cwd = '.'
- 
+if not cwd?
+  cwd = '.'
+
 sortem = (files) ->
   files.sort (a, b) ->
     if a.isDirectory
@@ -26,6 +27,7 @@ getlink = ->
     listFiles()
 
 showFiles = (files) ->
+  $('#cwd').html cwd
   console.log '**** FileManager showFiles ****'
   str = '<li class=\"fmitem fmupdir\">..</li>'
   sortem files
@@ -42,7 +44,10 @@ showFiles = (files) ->
   $('.fmdir').off 'click'
   $('.fmdir').on 'click', ->    
     if cwd is '.' then cwd = './'
+    console.log 'cwd starts as ' + cwd
     cwd += $(this).text()
+    console.log 'cwd ends as ' + cwd
+     
     listFiles()
   
   $('.fmupdir').off 'click'  
@@ -59,6 +64,9 @@ showFiles = (files) ->
     listFiles()
 
 $ ->
+  $('#donesel').click -> 
+    window.cwd = cwd
+    window.loadini()
   $('#seldir').click ->
     $('#fileman').dialog
       title: 'Select Directory'
@@ -68,8 +76,11 @@ $ ->
     $('#fileswin').height $(window).height() * .75
     listFiles()
       
-      
     $('#refreshdir').click listFiles
+  now.ready ->
+    now.initdirs (dir) -> 
+      cwd = dir
+      $('#cwd').html cwd
 
 
 
